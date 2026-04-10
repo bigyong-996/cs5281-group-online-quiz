@@ -2,3 +2,5 @@
 .env
 .env.*
 *.log
+data/export/*.csv
+tests/tmp/
