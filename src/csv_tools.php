@@ -69,7 +69,7 @@ function buildQuizResultsCsv(array $quiz, array $submissions, array $usersById =
         throw new RuntimeException('Unable to create CSV stream.');
     }
 
-    fputcsv($handle, ['student_id', 'student_name', 'score', 'submitted_at']);
+    fputcsv($handle, ['student_id', 'student_name', 'score', 'submitted_at'], ',', '"', '');
     foreach ($submissions as $submission) {
         if ((int) $submission['quiz_id'] !== (int) $quiz['id']) {
             continue;
@@ -81,7 +81,7 @@ function buildQuizResultsCsv(array $quiz, array $submissions, array $usersById =
             $usersById[$studentId]['display_name'] ?? '',
             (int) $submission['score'],
             $submission['submitted_at'] ?? '',
-        ]);
+        ], ',', '"', '');
     }
 
     rewind($handle);
