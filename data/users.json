@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "id": 1,
+        "username": "instructor",
+        "display_name": "Course Instructor",
+        "password_hash": "$2y$12$Fr4VhR7DqkbIAy0Z/y38mOi4RYVu5/xFX48L9jQgDPSaXBH596kUC",
+        "role": "instructor",
+        "group_id": null
+    }
+]
