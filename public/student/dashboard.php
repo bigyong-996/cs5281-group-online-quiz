@@ -8,15 +8,25 @@ require_once __DIR__ . '/../../src/submissions.php';
 
 $user = requireRole('student');
 $availableQuizzes = $user['group_id'] === null ? [] : listQuizzesForGroup((int) $user['group_id']);
+$submissionHistory = listSubmissionsForStudent((int) $user['id']);
 renderPageStart('Student Dashboard', $user);
 ?>
-<section class="card">
-    <p>Welcome, <?= h($user['display_name']) ?>.</p>
-    <p class="muted">Choose an assigned quiz to begin. Each quiz can be submitted once.</p>
+<section class="card hero-card">
+    <p class="eyebrow eyebrow-dark">Student Workspace</p>
+    <h2>Welcome back, <?= h($user['display_name']) ?>.</h2>
+    <p class="muted">Open assigned quizzes, watch the timer closely, and review completed work from your history.</p>
 </section>
-<section class="card">
-    <h2>Available Quizzes</h2>
-    <table>
+<section>
+    <?php renderSectionHeader('Overview', 'A quick look at what is waiting for you'); ?>
+    <div class="stat-grid">
+        <?php renderStatCard('Open Quizzes', count(array_filter($availableQuizzes, static fn(array $quiz): bool => ! hasStudentSubmitted((int) $quiz['id'], (int) $user['id']))), 'accent'); ?>
+        <?php renderStatCard('Completed', count($submissionHistory), 'warm'); ?>
+        <?php renderStatCard('Group', $user['group_id'] === null ? 'Unassigned' : 'Group ' . $user['group_id'], 'cool'); ?>
+    </div>
+</section>
+<section>
+    <?php renderSectionHeader('Available Quizzes', 'Each published quiz can be submitted once'); ?>
+    <table class="data-table">
         <thead><tr><th>Quiz</th><th>Description</th><th>Time Limit</th><th>Status</th><th>Action</th></tr></thead>
         <tbody>
         <?php foreach ($availableQuizzes as $quiz): ?>

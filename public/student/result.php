@@ -15,13 +15,14 @@ if ($submission === null || (int) $submission['student_id'] !== (int) $user['id'
 
 renderPageStart('Quiz Result', $user);
 ?>
-<section class="card">
-    <p class="stat"><?= (int) $submission['score'] ?></p>
-    <p>Score</p>
+<section class="card hero-card">
+    <p class="eyebrow eyebrow-dark">Submission Summary</p>
+    <h2>Your score is <?= (int) $submission['score'] ?></h2>
+    <p class="muted">You answered <?= (int) ($submission['correct_count'] ?? 0) ?> out of <?= (int) ($submission['total_count'] ?? count($submission['details'])) ?> questions correctly.</p>
 </section>
 <section class="card">
-    <h2>Answer Breakdown</h2>
-    <table>
+    <?php renderSectionHeader('Answer Breakdown', 'Compare your answer with the saved correct answer'); ?>
+    <table class="data-table">
         <thead><tr><th>Question</th><th>Your Answer</th><th>Correct Answer</th><th>Status</th></tr></thead>
         <tbody>
         <?php foreach ($submission['details'] as $detail): ?>
@@ -29,7 +30,7 @@ renderPageStart('Quiz Result', $user);
                 <td><?= h($detail['question_text'] ?? '') ?></td>
                 <td><?= h($detail['student_answer'] ?? '') ?></td>
                 <td><?= h($detail['correct_answer']) ?></td>
-                <td><?= $detail['is_correct'] ? 'Correct' : 'Incorrect' ?></td>
+                <td><span class="pill <?= $detail['is_correct'] ? 'pill-success' : 'pill-danger' ?>"><?= $detail['is_correct'] ? 'Correct' : 'Incorrect' ?></span></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

@@ -33,6 +33,7 @@ function summarizeQuizStatistics(array $quiz, array $questionsById, array $submi
         'quiz_title' => $quiz['title'],
         'average_score' => $averageScore,
         'submission_count' => count($quizSubmissions),
+        'high_score' => $quizSubmissions === [] ? 0 : max(array_column($quizSubmissions, 'score')),
         'per_question_accuracy' => $perQuestionAccuracy,
     ];
 }

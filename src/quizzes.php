@@ -94,3 +94,16 @@ function getQuizById(int $quizId, ?string $override = null): ?array
 {
     return findRecordById(loadRecords(quizzesFile($override)), $quizId);
 }
+
+function summarizeQuizCard(array $quiz): string
+{
+    $questionCount = count($quiz['question_ids'] ?? []);
+    $groupCount = count($quiz['assigned_group_ids'] ?? []);
+
+    return sprintf(
+        '%d questions · %d groups · %d minutes',
+        $questionCount,
+        $groupCount,
+        (int) ($quiz['time_limit_minutes'] ?? 0)
+    );
+}

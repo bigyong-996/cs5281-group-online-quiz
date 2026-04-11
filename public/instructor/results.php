@@ -10,17 +10,20 @@ $quizzes = array_values(array_filter(loadRecords(DATA_DIR . '/quizzes.json'), st
 renderPageStart('Quiz Results', $user);
 ?>
 <section class="card">
-    <label>Select Quiz
-        <select id="results-quiz-select" data-results-endpoint="/instructor/results_data.php">
-            <option value="">Choose a quiz</option>
-            <?php foreach ($quizzes as $quiz): ?>
-                <option value="<?= (int) $quiz['id'] ?>"><?= h($quiz['title']) ?> (<?= h($quiz['status']) ?>)</option>
-            <?php endforeach; ?>
-        </select>
-    </label>
-    <p><a id="results-export-link" class="button button-secondary" href="#">Export Current Quiz as CSV</a></p>
+    <?php renderSectionHeader('Quiz Results', 'Load a published or closed quiz to inspect statistics'); ?>
+    <div class="results-toolbar">
+        <label>Select Quiz
+            <select id="results-quiz-select" data-results-endpoint="/instructor/results_data.php">
+                <option value="">Choose a quiz</option>
+                <?php foreach ($quizzes as $quiz): ?>
+                    <option value="<?= (int) $quiz['id'] ?>"><?= h($quiz['title']) ?> (<?= h($quiz['status']) ?>)</option>
+                <?php endforeach; ?>
+            </select>
+        </label>
+        <a id="results-export-link" class="button button-secondary" href="#">Export Current Quiz as CSV</a>
+    </div>
 </section>
 <section class="card" id="results-summary">
-    <p>Select a quiz to load statistics.</p>
+    <p class="muted">Select a quiz to load statistics.</p>
 </section>
 <?php renderPageEnd(); ?>

@@ -23,6 +23,9 @@ $submissions = [
 
 $summary = summarizeQuizStatistics($quiz, $questionsById, $submissions);
 assertSameValue(75, $summary['average_score'], 'Average score should be rounded from quiz submissions.');
+assertSameValue('Week 1 Quiz', $summary['quiz_title'], 'The statistics summary should include the quiz title.');
+assertSameValue('Capital of France?', $summary['per_question_accuracy'][10]['question_text'], 'Per-question accuracy should include readable question text.');
+assertSameValue(100, $summary['high_score'], 'The statistics summary should include the highest score.');
 assertSameValue(100, $summary['per_question_accuracy'][10]['accuracy'], 'Question 10 should show 100 percent accuracy.');
 assertSameValue(50, $summary['per_question_accuracy'][11]['accuracy'], 'Question 11 should show 50 percent accuracy.');
 

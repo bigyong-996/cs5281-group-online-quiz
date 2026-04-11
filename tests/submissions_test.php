@@ -20,6 +20,7 @@ $result = scoreSubmission($quiz, $questions, [
 ]);
 
 assertSameValue(50, $result['score'], 'One correct answer out of two should score 50.');
+assertSameValue(2, $result['total_count'], 'Submission summary should expose the total question count.');
 assertSameValue(false, $result['details'][11]['is_correct'], 'Incorrect answer should be flagged.');
 
 $tempDir = makeTempDir('submissions');

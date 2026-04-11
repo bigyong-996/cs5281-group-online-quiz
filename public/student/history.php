@@ -14,8 +14,14 @@ foreach (loadRecords(DATA_DIR . '/quizzes.json') as $quiz) {
 
 renderPageStart('Quiz History', $user);
 ?>
+<section class="card hero-card">
+    <p class="eyebrow eyebrow-dark">History</p>
+    <h2>Review completed attempts and reopen any result summary.</h2>
+    <p class="muted">Each row keeps the original submission time and score so you can scan progress quickly.</p>
+</section>
 <section class="card">
-    <table>
+    <?php renderSectionHeader('Completed Quizzes', 'All saved submissions for your account'); ?>
+    <table class="data-table">
         <thead><tr><th>Quiz</th><th>Score</th><th>Submitted At</th><th>View</th></tr></thead>
         <tbody>
         <?php foreach ($history as $submission): ?>

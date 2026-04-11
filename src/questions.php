@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/storage.php';
+require_once __DIR__ . '/rich_content.php';
 
 function questionsFile(?string $override = null): string
 {
@@ -10,10 +11,13 @@ function questionsFile(?string $override = null): string
 
 function normalizeQuestionInput(array $input): array
 {
+    $questionText = trim((string) ($input['question_text'] ?? ''));
     $options = array_map('trim', $input['options'] ?? []);
 
     return [
-        'question_text' => trim((string) ($input['question_text'] ?? '')),
+        'question_text' => $questionText,
+        'question_content_html' => normalizeQuestionContent((string) ($input['question_content_html'] ?? ''), $questionText),
+        'question_image_path' => trim((string) ($input['question_image_path'] ?? '')),
         'topic' => trim((string) ($input['topic'] ?? '')),
         'options' => $options,
         'correct_answer' => trim((string) ($input['correct_answer'] ?? '')),
@@ -91,4 +95,22 @@ function questionsById(array $questions): array
     }
 
     return $byId;
+}
+
+function questionContentHtml(array $question): string
+{
+    return normalizeQuestionContent(
+        (string) ($question['question_content_html'] ?? ''),
+        (string) ($question['question_text'] ?? '')
+    );
+}
+
+function questionPlainSummary(array $question): string
+{
+    $summary = trim(strip_tags(questionContentHtml($question)));
+    if ($summary !== '') {
+        return $summary;
+    }
+
+    return trim((string) ($question['question_text'] ?? ''));
 }

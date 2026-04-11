@@ -78,6 +78,26 @@ function renderPageStart(string $title, ?array $user = null): void
     <?php
 }
 
+function renderSectionHeader(string $title, string $subtitle = ''): void
+{
+    echo '<div class="section-header">';
+    echo '<div>';
+    echo '<h2>' . h($title) . '</h2>';
+    if ($subtitle !== '') {
+        echo '<p class="muted section-subtitle">' . h($subtitle) . '</p>';
+    }
+    echo '</div>';
+    echo '</div>';
+}
+
+function renderStatCard(string $label, string|int $value, string $tone = 'default'): void
+{
+    echo '<article class="stat-card stat-card-' . h($tone) . '">';
+    echo '<p class="stat-card-value">' . h($value) . '</p>';
+    echo '<p class="stat-card-label">' . h($label) . '</p>';
+    echo '</article>';
+}
+
 function renderPageEnd(): void
 {
     echo "</main></body></html>";

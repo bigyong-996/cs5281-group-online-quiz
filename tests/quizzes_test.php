@@ -26,4 +26,7 @@ $visible = listQuizzesForGroup(2, $quizzesFile);
 assertSameValue(1, count($visible), 'Assigned group should see the published quiz.');
 assertSameValue(0, count(listQuizzesForGroup(3, $quizzesFile)), 'Unassigned groups should not see the quiz.');
 
+$summary = summarizeQuizCard($published);
+assertTrueValue(str_contains($summary, '2 questions'), 'Quiz summary should mention the number of questions.');
+
 echo "OK quizzes_test\n";

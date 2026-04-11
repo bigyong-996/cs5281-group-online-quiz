@@ -70,6 +70,8 @@ function saveSubmissionRecord(array $input, ?string $override = null): array
         'answers' => $input['answers'],
         'details' => $input['details'],
         'score' => (int) $input['score'],
+        'correct_count' => isset($input['correct_count']) ? (int) $input['correct_count'] : null,
+        'total_count' => isset($input['total_count']) ? (int) $input['total_count'] : null,
         'submitted_at' => $input['submitted_at'] ?? date('c'),
     ];
     $submissions[] = $record;
